@@ -1,0 +1,42 @@
+1: 约定优于配置,默认情况启动类会自动扫描当前包和子包注解,当前支持自定义配置：
+
+   @SpringBootApplication(scanBasePackages = { "boot.*" })
+   public class RunApp {
+   
+   }
+   
+2: 配置Dao持久层,和连接数据库的参数
+
+   1: mysql,和jdbcTempldate在父pom有坐标声明(其它的持久层框架,参考maven仓库)
+   
+   <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+   </dependency>
+   <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jdbc</artifactId>
+   </dependency>
+   
+3: 配置service->dao->jdbcTempldate的依赖关系(与普通项目一样)
+
+4: 配置连接数据库的参数(spring boot中所有约定配置,都在spring-boot-autoconfigure-2.0.6.RELEASE.jar)
+
+         4.1: 其中数据库的配置：DataSourceProperties，在源码中 @ConfigurationProperties(prefix = "spring.datasource") 定义了配置的前缀
+         4.2: 默认约定application.properties为配置文件,此文件必须在resources中,配置如下代码：
+         
+         spring.datasource.driverClassName=com.mysql.jdbc.Driver
+		 spring.datasource.url=jdbc:mysql://localhost:3306/demo
+		 spring.datasource.username = root
+		 spring.datasource.password = root
+			         
+         
+
+ 
+    
+    
+
+
+org.springframework.boot.autoconfigure.jdbc..class
+
+@ConfigurationProperties(prefix = "spring.datasource")
